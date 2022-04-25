@@ -1,0 +1,25 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies # Get used packages
+      run: dotnet restore "./EmailService/EmailService.csproj"
+    - name: Build # Build main project
+      run: dotnet build --no-restore  "./EmailService/EmailService.csproj"
+    #- name: Test # Run tests
+      #run: dotnet test --no-build --verbosity normal ./test/test.csproj
