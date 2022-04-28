@@ -21,7 +21,7 @@ void SetupServices(WebApplicationBuilder builder)
     AddTransients(builder);
 }
 
-static void SetupApp(WebApplicationBuilder builder)
+void SetupApp(WebApplicationBuilder builder)
 {
     var app = builder.Build();
 
@@ -41,12 +41,12 @@ static void SetupApp(WebApplicationBuilder builder)
     app.Run();
 }
 
-static void AddTransients(WebApplicationBuilder builder)
+void AddTransients(WebApplicationBuilder builder)
 {
-    builder.Services.AddTransient<IEmailService, SendEmailService>();
+    builder.Services.AddTransient<ISendEmailService, SendEmailService>();
 }
 
-static void LoadSecurity(WebApplicationBuilder builder)
+void LoadSecurity(WebApplicationBuilder builder)
 {
     builder.Services.Configure<Security>(builder.Configuration.GetSection("Security"));
 }

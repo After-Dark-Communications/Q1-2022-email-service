@@ -12,14 +12,14 @@ namespace EmailService.Controllers
     {
         private readonly IOptions<Security> security;
 
-        private readonly IEmailService emailService;
+        private readonly ISendEmailService emailService;
 
-        public EmailController(IEmailService emailService, IOptions<Security> security)
+        public EmailController(ISendEmailService emailService, IOptions<Security> security)
         {
             this.emailService = emailService;
             this.security = security;
         }
-
+         
         [Route("Send")]
         [HttpGet]
         public IActionResult SendEmail()
@@ -29,12 +29,13 @@ namespace EmailService.Controllers
                 EmailInfo emailInfo = new EmailInfo(security)
                 {
                     BodyFormat = new string[] { "test body format", "testje", "teste"},
-                    ReceiverAddress = "lucsomers@hotmail.com",
-                    Subject = "Dit is het onderwerp",
+                    ReceiverAddress = "steef.v.d.weijdeven@gmail.com",
+                    Subject = "heey steef",
                     TemplateFileName = "EmailTemplate.html"
                 };
 
                 emailService.SendEmail(emailInfo);
+                
                 return Ok();    
             }
             catch (Exception e)

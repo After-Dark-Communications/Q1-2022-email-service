@@ -5,15 +5,17 @@ using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
+using RestSharp;
+using System.Net;
 
 namespace EmailService.Services
 {
-    public class SendEmailService : IEmailService
+    public class SendEmailService : ISendEmailService
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _environment;
 
-        SmtpClient smtpClient = new();
+        //SmtpClient smtpClient = new();
 
         public SendEmailService(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -21,33 +23,14 @@ namespace EmailService.Services
             _configuration = configuration;
         }
 
-        public async void SendEmail(EmailInfo emailInfo)
+        public void SendEmail(EmailInfo emailInfo)
         {
             // string messageBody = SetupMessageBody(emailInfo);
-            string messageBody = "";
+            string messageBody = "heey steef dit is een automatische email. de groentenboer!";
             MimeMessage mailMessage = SetupMessage(emailInfo, messageBody);
 
             SendEmail(emailInfo, mailMessage);
         }
-
-        private string SetupMessageBody(EmailInfo emailInfo)
-        {
-            string templatePath = _environment.WebRootPath
-                                        + Path.DirectorySeparatorChar.ToString()
-                                        + "templates"
-                                        + Path.DirectorySeparatorChar.ToString()
-                                        + emailInfo.TemplateFileName;
-
-            var builder = new BodyBuilder();
-            using (StreamReader SourceReader = File.OpenText(templatePath))
-            {
-                builder.HtmlBody = SourceReader.ReadToEnd();
-            }
-
-            string messageBody = string.Format(builder.HtmlBody, emailInfo.BodyFormat);
-            return messageBody;
-        }
-
         private MimeMessage SetupMessage(EmailInfo emailInfo, string messageBody)
         {
             MimeMessage mailMessage = new MimeMessage();
@@ -59,24 +42,22 @@ namespace EmailService.Services
             mailMessage.Subject = emailInfo.Subject;
             mailMessage.Body = new TextPart("plain")
             {
-                Text = "test text"
+                Text = "heey steef dit is een automatische email. de groentenboer!"
             };
-                
-            //mailMessage.Body = new TextPart("html")
-            //{
-            //    Text = messageBody
-            //};
+           
 
             return mailMessage;
         }
 
         private void SendEmail(EmailInfo emailInfo, MimeMessage mailMessage)
         {
-            smtpClient.ServerCertificateValidationCallback = (s, c, h, e) => true;
-            smtpClient.Connect(_configuration["Mailing:Smtp:Url"], int.Parse(_configuration["Mailing:Smtp:Port"]), SecureSocketOptions.None);
-            smtpClient.Authenticate(emailInfo.Security.Value.EmailAdress, emailInfo.Security.Value.Password);
-            smtpClient.Send(mailMessage);
-            smtpClient.Disconnect(true);
+            using (var smtpClient = new SmtpClient())
+            {
+                smtpClient.Connect(_configuration["Mailing:Smtp:Url"], int.Parse(_configuration["Mailing:Smtp:Port"]));
+                smtpClient.Authenticate(emailInfo.Security.Value.UserName, emailInfo.Security.Value.Password);
+                smtpClient.Send(mailMessage);
+                smtpClient.Disconnect(true);
+            }
         }
     }
 }

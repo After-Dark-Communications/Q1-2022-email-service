@@ -2,7 +2,7 @@
 
 namespace EmailService.IServices
 {
-    public interface IEmailService
+    public interface ISendEmailService
     {
         public void SendEmail(EmailInfo emailInfo);
     }
