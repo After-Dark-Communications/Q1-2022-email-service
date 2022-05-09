@@ -29,8 +29,8 @@ namespace EmailService.Controllers
                 EmailInfo emailInfo = new EmailInfo(security)
                 {
                     BodyFormat = new string[] { "test body format", "testje", "teste"},
-                    ReceiverAddress = "steef.v.d.weijdeven@gmail.com",
-                    Subject = "heey steef",
+                    ReceiverAddress = "lucsomers@hotmail.com",
+                    Subject = "heey luukie luuk",
                     TemplateFileName = "EmailTemplate.html"
                 };
 
