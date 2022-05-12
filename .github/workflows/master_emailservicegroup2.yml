@@ -26,13 +26,11 @@ jobs:
         username: ${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_c983649e1a3748b48ff35c160653ab4c }}
 
-    - name: Build and push docker image
-      uses: docker/build-push-action@v3 .
-      with:
-        context: ./EmailService
-        file: ./EmailService/Dockerfile
-        push: true
-        tags: hoeleboele/emailservicegroup2:latest
+    - name: Build docker image
+      run: docker build -t hoeleboele/emailservicegroup2 .
+      
+    - name: Push docker image
+      run: docker push hoeleboele/emailservicegroup2
 
   deploy:
     runs-on: ubuntu-latest
