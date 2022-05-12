@@ -26,8 +26,8 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://index.docker.io/hoeleboele/emailservicegroup2
-        username: ${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_c983649e1a3748b48ff35c160653ab4c }}
+        username: ${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_48C027B5B77E4FE999B7FF2FD8D57FA6 }}
+        password: ${{ secrets.AZUREAPPSERVICE_CONTAINERPASSWORD_C983649E1A3748B48FF35C160653AB4C }}
 
     - name: Build docker image
       working-directory: ./EmailService/
