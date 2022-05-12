@@ -27,10 +27,8 @@ jobs:
         password: ${{ secrets.AzureAppService_ContainerPassword_c983649e1a3748b48ff35c160653ab4c }}
 
     - name: Build docker image
+      working-directory: ./EmailService/
       run: docker build -t hoeleboele/emailservicegroup2 .
-      with:
-        context: ./EmailService
-        file: ./EmailService/DockerFile
       
     - name: Push docker image
       run: docker push hoeleboele/emailservicegroup2
