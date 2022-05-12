@@ -29,7 +29,7 @@ jobs:
     - name: Build and push docker image
       uses: docker/build-push-action@v3
       with:
-        context: "{{defaultContext}}:EmailService"
+        context: ./EmailService
         file: ./EmailService/Dockerfile
         push: true
         tags: hoeleboele/emailservicegroup2:latest
