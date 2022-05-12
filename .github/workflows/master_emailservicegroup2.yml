@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: ./EmailService
-        file: ./EmailService/DockerFile
+        file: ./EmailService/Dockerfile
         push: true
         tags: hoeleboele/emailservicegroup2:latest
 
