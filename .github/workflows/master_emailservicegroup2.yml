@@ -27,11 +27,11 @@ jobs:
       
 
     - name: Build docker image
-      working-directory: ./EmailService/
+      working-directory: ./EmailService
       run: docker build -t hoeleboele/emailservicegroup2 .
       
     - name: Push docker image
-      working-directory: ./EmailService/
+      working-directory: ./EmailService
       run: docker push hoeleboele/emailservicegroup2
 
   deploy:
