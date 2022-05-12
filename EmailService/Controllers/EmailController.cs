@@ -13,30 +13,31 @@ namespace EmailService.Controllers
         private readonly IOptions<Security> security;
 
         private readonly ISendEmailService emailService;
-
-        public EmailController(ISendEmailService emailService, IOptions<Security> security)
+        private readonly string wwwRoot;
+        public EmailController(ISendEmailService emailService, IOptions<Security> security, IWebHostEnvironment environment)
         {
             this.emailService = emailService;
             this.security = security;
+            wwwRoot = environment.WebRootPath;
         }
-         
+
         [Route("Send")]
-        [HttpGet]
-        public IActionResult SendEmail()
+        [HttpPost]
+        public IActionResult SendEmail([FromBody] string email)
         {
             try
             {
                 EmailInfo emailInfo = new EmailInfo(security)
                 {
-                    BodyFormat = new string[] { "test body format", "testje", "teste"},
-                    ReceiverAddress = "lucsomers@hotmail.com",
-                    Subject = "heey luukie luuk",
-                    TemplateFileName = "EmailTemplate.html"
+                    BodyFormat = new string[] { "test body format", "testje", "teste" },
+                    ReceiverAddress = email,
+                    Subject = "Survey DinnerInMotion",
+                    TemplateFilePath = Path.Combine(wwwRoot,"Templates/DimMail.htm")
                 };
 
                 emailService.SendEmail(emailInfo);
-                
-                return Ok();    
+
+                return Ok();
             }
             catch (Exception e)
             {

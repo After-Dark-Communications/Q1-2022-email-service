@@ -31,6 +31,7 @@ namespace EmailService.Services
 
             SendEmail(emailInfo, mailMessage);
         }
+
         private MimeMessage SetupMessage(EmailInfo emailInfo, string url)
         {
             MimeMessage mailMessage = new MimeMessage();
