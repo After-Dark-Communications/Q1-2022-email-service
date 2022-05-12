@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}/docker-image:latest
-        file: ../EmailService/Dockerfile
+        file: ./EmailService/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
