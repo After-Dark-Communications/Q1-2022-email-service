@@ -22,10 +22,9 @@ jobs:
     - name: Logout
       run: docker logout
 
-    - name: Log in to registry
-      uses: docker/login-action@v1
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
       with:
-        registry: https://index.docker.io/hoeleboele/emailservicegroup2
         username: ${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_48C027B5B77E4FE999B7FF2FD8D57FA6 }}
         password: ${{ secrets.AZUREAPPSERVICE_CONTAINERPASSWORD_C983649E1A3748B48FF35C160653AB4C }}
 
