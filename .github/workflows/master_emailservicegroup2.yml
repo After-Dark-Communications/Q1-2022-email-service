@@ -27,11 +27,14 @@ jobs:
         password: ${{ secrets.AzureAppService_ContainerPassword_c983649e1a3748b48ff35c160653ab4c }}
 
     - name: Build container image
-      uses: docker build -t hoeleboele/emailservicegroup2 @v1
+      uses: docker/build-action @v2
+      with:
+       tags: hoeleboele/emailservicegroup2:latest
 
     - name: push container image to registry
-      uses: docker push -t hoeleboele/emailservicegroup2 @v1
+      uses: docker/push-action @v2
       with:
+        tags: hoeleboele/emailservicegroup2:latest
         file: ./EmailService/Dockerfile
 
   deploy:
