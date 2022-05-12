@@ -26,11 +26,12 @@ jobs:
         username: ${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_c983649e1a3748b48ff35c160653ab4c }}
 
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v2
+    - name: Build container image
+      uses: docker build -t hoeleboele/emailservicegroup2 @v1
+
+    - name: push container image to registry
+      uses: docker push -t hoeleboele/emailservicegroup2 @v1
       with:
-        push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}/docker-image:test
         file: ./EmailService/Dockerfile
 
   deploy:
