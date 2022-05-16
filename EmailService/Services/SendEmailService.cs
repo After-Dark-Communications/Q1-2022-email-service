@@ -26,12 +26,13 @@ namespace EmailService.Services
         public void SendEmail(EmailInfo emailInfo)
         {
             // string messageBody = SetupMessageBody(emailInfo);
-            string messageBody = "heey steef dit is een automatische email. de groentenboer!";
+            string messageBody = "https://www.dupuis.com/v5/img/visuels_resume/LL.jpg";
             MimeMessage mailMessage = SetupMessage(emailInfo, messageBody);
 
             SendEmail(emailInfo, mailMessage);
         }
-        private MimeMessage SetupMessage(EmailInfo emailInfo, string messageBody)
+
+        private MimeMessage SetupMessage(EmailInfo emailInfo, string url)
         {
             MimeMessage mailMessage = new MimeMessage();
 
@@ -40,18 +41,20 @@ namespace EmailService.Services
             mailMessage.To.Add(new MailboxAddress(emailInfo.ReceiverAddress, emailInfo.ReceiverAddress));
 
             mailMessage.Subject = emailInfo.Subject;
-            mailMessage.Body = new TextPart("plain")
-            {
-                Text = "heey steef dit is een automatische email. de groentenboer!"
-            };
-           
+            BodyBuilder builder = new BodyBuilder();
+            builder.HtmlBody = emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg");
+            mailMessage.Body = builder.ToMessageBody();
+            //mailMessage.Body = new TextPart("plain")
+            //{
+            //    Text = "heey steef dit is een automatische email. de groentenboer!"
+            //};
 
             return mailMessage;
         }
 
         private void SendEmail(EmailInfo emailInfo, MimeMessage mailMessage)
         {
-            using (var smtpClient = new SmtpClient())
+            using (SmtpClient smtpClient = new SmtpClient())
             {
                 smtpClient.Connect(_configuration["Mailing:Smtp:Url"], int.Parse(_configuration["Mailing:Smtp:Port"]));
                 smtpClient.Authenticate(emailInfo.Security.Value.UserName, emailInfo.Security.Value.Password);
