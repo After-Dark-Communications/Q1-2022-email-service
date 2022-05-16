@@ -1,8 +1,5 @@
-using EmailService.Factories;
 using EmailService.IServices;
-using EmailService.SaveSystem;
 using EmailService.Services;
-using EmailService.Services.IServices;
 using EmailService.UserSecrets;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +44,6 @@ void SetupApp(WebApplicationBuilder builder)
 void AddTransients(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<ISendEmailService, SendEmailService>();
-    builder.Services.AddTransient<IEmailSettingsService, EmailSettingsService>();
 }
 
 void LoadSecurity(WebApplicationBuilder builder)

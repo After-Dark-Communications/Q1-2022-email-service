@@ -9,11 +9,11 @@ namespace EmailService.Factories
             EmailSettings emailSettings = new EmailSettings()
             {   
                 ImageAtTop = true,
-                ImagePath = "imagepathtest",
+                ImagePath = "",
 
-                MailHeader = "testHeader",
-                MailIntro = "testIntor",
-                MailBody = "testbody"
+                MailHeader = "",
+                MailIntro = "",
+                MailBody = ""
             };
 
             return emailSettings;
