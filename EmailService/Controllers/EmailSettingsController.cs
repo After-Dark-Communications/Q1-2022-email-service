@@ -10,7 +10,7 @@ namespace EmailService.Controllers
         {
             try
             {
-
+                
                 return Ok();
             }
             catch (Exception e)
