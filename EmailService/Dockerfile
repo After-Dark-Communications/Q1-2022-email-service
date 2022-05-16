@@ -13,7 +13,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS final
 WORKDIR /app
 COPY --from=build-env /app/out .
 EXPOSE 8080
