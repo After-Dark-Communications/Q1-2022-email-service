@@ -21,8 +21,8 @@ namespace EmailService.Controllers
             wwwRoot = environment.WebRootPath;
         }
 
-        [Route("Send")]
         [HttpPost]
+        [Route("Send")]
         public IActionResult SendEmail([FromBody] string email)
         {
             try
@@ -45,8 +45,8 @@ namespace EmailService.Controllers
             }
         }
 
-        [Route("Preview")]
         [HttpGet]
+        [Route("Preview")]
         public IActionResult GetMailPreview()
         {
             try
@@ -63,8 +63,8 @@ namespace EmailService.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Route("Preview/{path}")]
         [HttpGet]
+        [Route("Preview/{path}")]
         public IActionResult GetMailPreview(string path)
         {
             try

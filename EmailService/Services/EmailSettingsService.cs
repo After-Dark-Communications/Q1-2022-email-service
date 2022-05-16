@@ -18,6 +18,7 @@ namespace EmailService.Services.IServices
         public void UpdateEmailSettings(EmailSettings emailSettings)
         {
             //TODO: save email settings
+            SaveSystem.SettingsSaver.SaveNewSettings(EmailSettingsFactory.GetDefaultEmailSettings());
         }
     }
 }

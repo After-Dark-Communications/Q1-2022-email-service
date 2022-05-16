@@ -7,7 +7,15 @@
     <UserSecretsId>75c34ba7-847d-4b23-970e-e11efacb8e89</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BinarySave\**" />
+    <Content Remove="BinarySave\**" />
+    <EmbeddedResource Remove="BinarySave\**" />
+    <None Remove="BinarySave\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="SecurityTemplate.json" />
@@ -26,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BinarySave\" />
     <Folder Include="SaveSystem\SaveFile\" />
   </ItemGroup>
 
