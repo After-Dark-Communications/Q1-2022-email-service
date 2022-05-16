@@ -32,7 +32,7 @@ namespace EmailService.Controllers
                     BodyFormat = new string[] { "test body format", "testje", "teste" },
                     ReceiverAddress = email,
                     Subject = "Survey DinnerInMotion",
-                    TemplateFilePath = Path.Combine(wwwRoot,"Templates/DimMail.htm")
+                    TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
                 };
 
                 emailService.SendEmail(emailInfo);
@@ -41,6 +41,43 @@ namespace EmailService.Controllers
             }
             catch (Exception e)
             {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("Preview")]
+        [HttpGet]
+        public IActionResult GetMailPreview()
+        {
+            try
+            {
+                EmailInfo emailInfo = new EmailInfo(security)
+                {
+                    TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
+                };
+                return base.Content(emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+        [Route("Preview/{path}")]
+        [HttpGet]
+        public IActionResult GetMailPreview(string path)
+        {
+            try
+            {
+                EmailInfo emailInfo = new EmailInfo(security)
+                {
+                    TemplateFilePath = Path.Combine(wwwRoot, path)
+                };
+                return base.Content(emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+            }
+            catch (Exception e)
+            {
+
                 return BadRequest(e.Message);
             }
         }
