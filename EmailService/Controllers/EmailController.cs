@@ -55,7 +55,7 @@ namespace EmailService.Controllers
                 {
                     TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
                 };
-                return base.Content(emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+                return base.Content(emailInfo.GetHTMLTemplate("klant","https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@ namespace EmailService.Controllers
                 {
                     TemplateFilePath = Path.Combine(wwwRoot, path)
                 };
-                return base.Content(emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+                return base.Content(emailInfo.GetHTMLTemplate("klant","https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
             }
             catch (Exception e)
             {
