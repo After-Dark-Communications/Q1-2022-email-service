@@ -23,7 +23,7 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_USERNAME  }}/email-service ./EmailService
       
     - name: Push docker image
-      run: docker push ${{ secrets.DOCKER_USERNAME  }}/email-service:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME  }}/email-service:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -39,4 +39,4 @@ jobs:
       with:
         app-name: emailservicegroup2
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_d22f95783b9f4ca381821074325dd6d1 }}
-        images: docker.io/${{ secrets.DOCKER_USERNAME  }}/email-service:latest
+        images: docker.io/${{ secrets.DOCKER_USERNAME  }}/email-service:${{ github.sha }}
