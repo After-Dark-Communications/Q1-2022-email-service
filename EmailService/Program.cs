@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using EmailService.IServices;
 using EmailService.Services;
 using EmailService.UserSecrets;
