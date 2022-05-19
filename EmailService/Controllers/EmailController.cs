@@ -23,10 +23,10 @@ namespace EmailService.Controllers
 
         [Route("Send")]
         [HttpPost]
-        public IActionResult SendEmail([FromBody] List<UserEmail> emails)
+        public IActionResult SendEmail([FromBody] UserEmail email)
         {
-            foreach (UserEmail email in emails)
-            {
+            //foreach (UserEmail email in emails)
+            //{
                 try
                 {
                     EmailInfo emailInfo = new EmailInfo(security)
@@ -34,7 +34,8 @@ namespace EmailService.Controllers
                         BodyFormat = new string[] { "test body format", "testje", "teste" },
                         ReceiverAddress = email.Email,
                         Subject = "Survey DinnerInMotion",
-                        TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
+                        TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm"),
+                        Username = email.Username
                     };
 
                     emailService.SendEmail(emailInfo);
@@ -43,7 +44,7 @@ namespace EmailService.Controllers
                 {
                     return BadRequest(e.Message);
                 }
-            }
+            //}
 
 
             return Ok();

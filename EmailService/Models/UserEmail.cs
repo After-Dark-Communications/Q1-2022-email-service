@@ -3,6 +3,7 @@
     [Serializable]
     public class UserEmail
     {
-        public string? Email;
+        public string Username { get; set; }
+        public string Email { get; set; }
     }
 }

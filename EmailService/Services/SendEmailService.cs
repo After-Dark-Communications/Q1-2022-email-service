@@ -42,7 +42,7 @@ namespace EmailService.Services
 
             mailMessage.Subject = emailInfo.Subject;
             BodyBuilder builder = new BodyBuilder();
-            builder.HtmlBody = emailInfo.GetHTMLTemplate("https://www.dupuis.com/v5/img/visuels_resume/LL.jpg");
+            builder.HtmlBody = emailInfo.GetHTMLTemplate(new string[2] { emailInfo.Username ,"https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"});
             mailMessage.Body = builder.ToMessageBody();
             //mailMessage.Body = new TextPart("plain")
             //{
