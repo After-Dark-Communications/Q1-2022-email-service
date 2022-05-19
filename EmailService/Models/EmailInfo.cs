@@ -23,7 +23,9 @@ namespace EmailService.Models
         public object[] BodyFormat { get => bodyFormat; set => bodyFormat = value; }
 
         public IOptions<Security> Security => security;
-        
+
+        public string Username { get; set; }
+
         /// <summary>Generates an html email body as a string</summary>
         /// <param name="args">The variables to put inside the body.</param>
         public string GetHTMLTemplate(params string[] args)

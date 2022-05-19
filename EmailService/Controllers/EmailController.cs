@@ -23,26 +23,31 @@ namespace EmailService.Controllers
 
         [Route("Send")]
         [HttpPost]
-        public IActionResult SendEmail([FromBody] string email)
+        public IActionResult SendEmail([FromBody] UserEmail email)
         {
-            try
-            {
-                EmailInfo emailInfo = new EmailInfo(security)
+            //foreach (UserEmail email in emails)
+            //{
+                try
                 {
-                    BodyFormat = new string[] { "test body format", "testje", "teste" },
-                    ReceiverAddress = email,
-                    Subject = "Survey DinnerInMotion",
-                    TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
-                };
+                    EmailInfo emailInfo = new EmailInfo(security)
+                    {
+                        BodyFormat = new string[] { "test body format", "testje", "teste" },
+                        ReceiverAddress = email.Email,
+                        Subject = "Survey DinnerInMotion",
+                        TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm"),
+                        Username = email.Username
+                    };
 
-                emailService.SendEmail(emailInfo);
+                    emailService.SendEmail(emailInfo);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            //}
 
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+
+            return Ok();
         }
 
         [Route("Preview")]
