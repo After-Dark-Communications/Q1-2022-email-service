@@ -3,6 +3,7 @@ using EmailService.IServices;
 using EmailService.Services;
 using EmailService.UserSecrets;
 
+string allowOriginName = "AllowCors";
 var builder = WebApplication.CreateBuilder(args);
 
 SetupServices(builder);
@@ -18,6 +19,8 @@ void SetupServices(WebApplicationBuilder builder)
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    SetupCors(builder);
 
     AddTransients(builder);
 }
@@ -35,6 +38,8 @@ void SetupApp(WebApplicationBuilder builder)
 
     app.UseHttpsRedirection();
 
+    app.UseCors(allowOriginName);
+
     app.UseAuthorization();
 
     app.MapControllers();
@@ -50,4 +55,17 @@ void AddTransients(WebApplicationBuilder builder)
 void LoadSecurity(WebApplicationBuilder builder)
 {
     builder.Services.Configure<Security>(builder.Configuration.GetSection("Security"));
+}
+
+void SetupCors(WebApplicationBuilder builder)
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: allowOriginName,
+                          policy =>
+                          {
+                              policy.WithOrigins("https://dinner-in-motion-project.ew.r.appspot.com",
+                                                  "https://www.q1-2022-frontend.vercel.app");
+                          });
+    });
 }
