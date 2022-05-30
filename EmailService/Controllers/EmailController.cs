@@ -9,7 +9,6 @@ namespace EmailService.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    [EnableCors("AllowCors")]
     public class EmailController : Controller
     {
         private readonly IOptions<Security> security;

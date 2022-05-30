@@ -20,10 +20,19 @@ void SetupServices(WebApplicationBuilder builder)
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    SetupCors(builder);
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "MyPolicy",
+        policy =>
+        {
+            policy.WithOrigins("https://emailservicegroup2.azurewebsites.net/",
+                                "https://dinner-in-motion-project.ew.r.appspot.com/")
+                    .WithMethods("PUT", "DELETE", "GET");
+        });
+    });
 
-    AddTransients(builder);
-}
+        AddTransients(builder);
+    }
 
 void SetupApp(WebApplicationBuilder builder)
 {
@@ -38,7 +47,7 @@ void SetupApp(WebApplicationBuilder builder)
 
     app.UseHttpsRedirection();
 
-    app.UseCors(allowOriginName);
+    SetupCors(app);
 
     app.UseAuthorization();
 
@@ -57,15 +66,7 @@ void LoadSecurity(WebApplicationBuilder builder)
     builder.Services.Configure<Security>(builder.Configuration.GetSection("Security"));
 }
 
-void SetupCors(WebApplicationBuilder builder)
+void SetupCors(WebApplication app)
 {
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(name: allowOriginName,
-                          policy =>
-                          {
-                              policy.WithOrigins("https://dinner-in-motion-project.ew.r.appspot.com",
-                                                  "https://www.q1-2022-frontend.vercel.app");
-                          });
-    });
+    app.UseCors("MyPolicy");
 }
