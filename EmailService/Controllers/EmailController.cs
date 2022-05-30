@@ -30,13 +30,15 @@ namespace EmailService.Controllers
             //{
                 try
                 {
-                    EmailInfo emailInfo = new EmailInfo(security)
-                    {
-                        BodyFormat = new string[] { "test body format", "testje", "teste" },
-                        ReceiverAddress = email.Email,
-                        Subject = "Survey DinnerInMotion",
-                        TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm"),
-                        Username = email.Username
+                EmailInfo emailInfo = new EmailInfo(security)
+                {
+                    BodyFormat = new string[] { "test body format", "testje", "teste" },
+                    //ReceiverAddress = email.Email,
+                    ReceiverAddress = "lucsomers@hotmail.com",
+                    Subject = "Survey DinnerInMotion",
+                    TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm"),
+                    Username = "Luc"
+                    //Username = email.Username
                     };
 
                     emailService.SendEmail(emailInfo);
