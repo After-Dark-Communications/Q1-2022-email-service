@@ -1,7 +1,6 @@
 ﻿using EmailService.IServices;
 using EmailService.Models;
 using EmailService.UserSecrets;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -28,8 +27,8 @@ namespace EmailService.Controllers
         {
             //foreach (UserEmail email in emails)
             //{
-                try
-                {
+            try
+            {
                 EmailInfo emailInfo = new EmailInfo(security)
                 {
                     BodyFormat = new string[] { "test body format", "testje", "teste" },
@@ -39,14 +38,14 @@ namespace EmailService.Controllers
                     TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm"),
                     Username = "Luc"
                     //Username = email.Username
-                    };
+                };
 
-                    emailService.SendEmail(emailInfo);
-                }
-                catch (Exception e)
-                {
-                    return BadRequest(e.Message);
-                }
+                emailService.SendEmail(emailInfo);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
             //}
 
 
@@ -63,7 +62,7 @@ namespace EmailService.Controllers
                 {
                     TemplateFilePath = Path.Combine(wwwRoot, "Templates/DimMail.htm")
                 };
-                return base.Content(emailInfo.GetHTMLTemplate("klant","https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+                return base.Content(emailInfo.GetHTMLTemplate("klant", "https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
             }
             catch (Exception e)
             {
@@ -81,7 +80,7 @@ namespace EmailService.Controllers
                 {
                     TemplateFilePath = Path.Combine(wwwRoot, path)
                 };
-                return base.Content(emailInfo.GetHTMLTemplate("klant","https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
+                return base.Content(emailInfo.GetHTMLTemplate("klant", "https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"), "text/html");
             }
             catch (Exception e)
             {
