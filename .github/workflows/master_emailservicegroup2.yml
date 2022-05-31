@@ -24,12 +24,12 @@ jobs:
 
     - name: Login to Docker Hub
       run: docker login -u hoeleboele -p df73edb4-9f3c-460e-9519-c3de619bb016
-      
+
 
     - name: Build docker image
       working-directory: ./EmailService
       run: docker build -t hoeleboele/emailservicegroup2 .
-      
+
     - name: Push docker image
       working-directory: ./EmailService
       run: docker push hoeleboele/emailservicegroup2
@@ -46,7 +46,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'emailservicegroup2'
+        app-name: 'rb05emailservice'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_d22f95783b9f4ca381821074325dd6d1 }}
         images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}/docker-image:${{ github.sha }}'
