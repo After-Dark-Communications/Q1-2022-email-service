@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'rb05emailservice'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_25e7f0dbef724f2297576bd74ab1cc65 }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25E7F0DBEF724F2297576BD74AB1CC65}}
         images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_307ceba084c648d6a528b4d94895ad44 }}/q1-2022-email-service:${{ github.sha }}'
