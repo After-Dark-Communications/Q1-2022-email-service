@@ -48,4 +48,4 @@ jobs:
         app-name: 'EmailServiceGroup2DinnerInMotion'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1646501228b84a5b8398e0dd036c0eb0 }}
-        images: 'index.docker.io/hoeleboele/emailservicegroup2:latest'
+        images: 'index.docker.io/hoeleboele/emailservicegroup2:${{ github.sha }}'
