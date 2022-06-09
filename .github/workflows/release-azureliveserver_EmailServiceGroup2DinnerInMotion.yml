@@ -31,7 +31,7 @@ jobs:
 
     - name: Push docker image
       working-directory: ./EmailService
-      run: docker push hoeleboele/emailservicegroup2
+      run: 'docker push hoeleboele/emailservicegroup2:${{ github.sha }}'
 
   deploy:
     runs-on: ubuntu-latest
