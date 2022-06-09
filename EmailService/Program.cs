@@ -25,9 +25,12 @@ void SetupServices(WebApplicationBuilder builder)
         options.AddPolicy(name: "MyPolicy",
         policy =>
         {
-            policy.WithOrigins("https://emailservicegroup2.azurewebsites.net/",
-                                "https://dinner-in-motion-project.ew.r.appspot.com/")
-                    .WithMethods("PUT", "DELETE", "GET");
+            policy.WithOrigins("https://rb05emailservice.azurewebsites.net/",
+                                "https://dinner-in-motion-project.ew.r.appspot.com/",
+                                "https://rb05emailservice.azurewebsites.net/",
+                                "http://dinner-in-motion-project.ew.r.appspot.com/")
+                                .WithMethods("PUT", "DELETE", "GET", "POST");
+            policy.AllowCredentials();
         });
     });
 
