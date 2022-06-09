@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using EmailService.IServices;
 using EmailService.Services;
 using EmailService.UserSecrets;
+using EmailService.Singletons;
 
 string allowOriginName = "AllowCors";
 var builder = WebApplication.CreateBuilder(args);
@@ -62,6 +63,8 @@ void SetupApp(WebApplicationBuilder builder)
 void AddTransients(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<ISendEmailService, SendEmailService>();
+    
+    builder.Services.AddSingleton<IHostedService, KafkaConsumerHandler>();
 }
 
 void LoadSecurity(WebApplicationBuilder builder)

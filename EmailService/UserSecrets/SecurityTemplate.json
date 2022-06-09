@@ -2,6 +2,11 @@
     "Security": {
         "EmailAdress": "student_Number@student.fontys.nl",
         "Username": "student_Number",
-        "Password": "password"
+        "Password": "password",
+
+        "KafkaServer": "server_ip",
+        "KafkaGroupId": "group_id",
+        "KafkaUsername": "username",
+        "KafkaPassword":  "password"
     }
 }
