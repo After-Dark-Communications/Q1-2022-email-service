@@ -1,7 +1,9 @@
 ﻿using Confluent.Kafka;
+using EmailService.Models;
 using EmailService.UserSecrets;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace EmailService.Singletons
 {
@@ -14,7 +16,7 @@ namespace EmailService.Singletons
             this.security = security;
         }
 
-        private readonly string topic = "mockTopic";
+        private readonly string topic = "dinnerinmotion.reservations.create";
         public Task StartAsync(CancellationToken cancellationToken)
         {
             var conf = new ConsumerConfig
@@ -38,6 +40,7 @@ namespace EmailService.Singletons
                     {
                         var consumer = builder.Consume(cancelToken.Token);
                         Debug.WriteLine($"Message: {consumer.Message.Value} received from {consumer.TopicPartitionOffset}");
+                        Reservation reservation = JsonSerializer.Deserialize<Reservation>(consumer.Message.Value);
                     }
                 }
                 catch (Exception)
