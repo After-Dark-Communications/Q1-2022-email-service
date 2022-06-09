@@ -1,12 +1,7 @@
 ﻿using EmailService.IServices;
 using EmailService.Models;
 using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.AspNetCore.Mvc;
 using MimeKit;
-using MimeKit.Text;
-using RestSharp;
-using System.Net;
 
 namespace EmailService.Services
 {
@@ -42,7 +37,7 @@ namespace EmailService.Services
 
             mailMessage.Subject = emailInfo.Subject;
             BodyBuilder builder = new BodyBuilder();
-            builder.HtmlBody = emailInfo.GetHTMLTemplate(new string[2] { emailInfo.Username ,"https://www.dupuis.com/v5/img/visuels_resume/LL.jpg"});
+            builder.HtmlBody = emailInfo.GetHTMLTemplate(new string[2] { emailInfo.Username, "https://www.dupuis.com/v5/img/visuels_resume/LL.jpg" });
             mailMessage.Body = builder.ToMessageBody();
             //mailMessage.Body = new TextPart("plain")
             //{

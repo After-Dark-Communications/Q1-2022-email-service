@@ -1,12 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy container app to Azure Web App - emailservicegroup2
+name: Build and deploy container app to Azure Web App - rb05emailservice
 
 on:
   push:
     branches:
-      - master
+      - release/azureliveserver
   workflow_dispatch:
 
 jobs:
@@ -19,20 +19,19 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: logout
-      run: docker logout
-
-    - name: Login to Docker Hub
-      run: docker login -u hoeleboele -p df73edb4-9f3c-460e-9519-c3de619bb016
-
+    - name: Log in to registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build docker image
       working-directory: ./EmailService
-      run: docker build -t hoeleboele/emailservicegroup2 .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rb05emailservice .
 
     - name: Push docker image
       working-directory: ./EmailService
-      run: docker push hoeleboele/emailservicegroup2
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/rb05emailservice
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,5 +47,5 @@ jobs:
       with:
         app-name: 'rb05emailservice'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d22f95783b9f4ca381821074325dd6d1 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_48c027b5b77e4fe999b7ff2fd8d57fa6 }}/docker-image:${{ github.sha }}'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25E7F0DBEF724F2297576BD74AB1CC65}}
+        images: 'index.docker.io/${{ secrets.DOCKER_USERNAME }}/q1-2022-email-service:${{ github.sha }}'
