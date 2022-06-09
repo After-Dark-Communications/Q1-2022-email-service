@@ -27,7 +27,7 @@ jobs:
         
     - name: Build docker image
       working-directory: ./EmailService
-      run: docker build -t hoeleboele/emailservicegroup2 .
+      run: 'docker build -t hoeleboele/emailservicegroup2:${{ github.sha }} .'
 
     - name: Push docker image
       working-directory: ./EmailService
