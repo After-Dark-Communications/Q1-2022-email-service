@@ -43,7 +43,7 @@ jobs:
     steps:
     - uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1646501228B84A5B8398E0DD036C0EB0 }}
     
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
